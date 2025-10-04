@@ -7,7 +7,6 @@ const StyledButton = styled.button`
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: ${({ theme }) => theme.fontSize.medium};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   transition: ease-in-out 0.1s;
   &:hover {

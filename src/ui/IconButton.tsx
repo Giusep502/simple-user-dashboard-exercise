@@ -22,10 +22,16 @@ const StyledButton = styled.button`
   }
 `;
 
-export const IconButton = ({ Icon }: { Icon: LucideIcon }) => {
+export const IconButton = ({
+  Icon,
+  ariaLabel,
+}: {
+  Icon: LucideIcon;
+  ariaLabel?: string;
+}) => {
   const theme = useTheme();
   return (
-    <StyledButton>
+    <StyledButton aria-label={ariaLabel}>
       <Icon size={24} color={theme.fill.primary} />
     </StyledButton>
   );

@@ -21,7 +21,6 @@ const Main = styled.main`
 const Header = styled.header`
   text-align: center;
   padding: ${({ theme }) => theme.spacing.large};
-  color: ${({ theme }) => theme.text.primary};
   font-size: ${({ theme }) => theme.fontSize.large};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 `;

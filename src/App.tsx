@@ -11,6 +11,10 @@ const GlobalStyles = createGlobalStyle`
     background: ${({ theme }) => theme.background.default};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: ${({ theme }) => theme.fontSize.medium};
+    line-height: ${({ theme }) => theme.lineHeight.medium};
+    font-weight: ${({ theme }) => theme.fontWeight.regular};
+    color: ${({ theme }) => theme.text.primary};
   }
   body {
     margin: 0;

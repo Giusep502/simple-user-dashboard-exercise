@@ -1,8 +1,9 @@
 import { ChevronRightIcon } from "lucide-react";
 import styled from "styled-components";
-import type { User } from "../types";
 import { IconButton } from "../ui";
 import { useBreakpointIndex } from "../hooks/useBreakpoints";
+import { UsersListContext } from "../providers";
+import { useContext } from "react";
 
 const Table = styled.table`
   width: 100%;
@@ -56,10 +57,8 @@ const MobileEmail = styled(EmailDiv)`
   font-size: ${({ theme }) => theme.fontSize.small};
 `;
 
-export const UsersList: React.FC<{
-  users: User[];
-  onSelectUser: (user: User) => void;
-}> = ({ users, onSelectUser }) => {
+export const UsersList = () => {
+  const { filteredUsers, setSelectedUser } = useContext(UsersListContext);
   const breakpointIndex = useBreakpointIndex();
 
   return (
@@ -73,8 +72,8 @@ export const UsersList: React.FC<{
         </HeadTr>
       </TableHead>
       <tbody>
-        {users.map((user) => (
-          <Tr key={user.id} onClick={() => onSelectUser(user)}>
+        {filteredUsers.map((user) => (
+          <Tr key={user.id} onClick={() => setSelectedUser(user)}>
             <Td>
               <NameDiv>{user.name}</NameDiv>
               {breakpointIndex < 1 && <MobileEmail>{user.email}</MobileEmail>}

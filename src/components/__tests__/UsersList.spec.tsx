@@ -3,13 +3,16 @@ import { screen } from "@testing-library/react";
 import { users } from "./mocks";
 import { renderWithProviders } from "./utils";
 import { UsersList } from "../UsersList";
+import { MockedUsersListProvider } from "./mocks/MockedUserListProvider";
 
 const mockOnSelectUser = vi.fn();
 
 describe("UserDialog", () => {
   it("should display users details", () => {
     renderWithProviders(
-      <UsersList users={users} onSelectUser={mockOnSelectUser} />,
+      <MockedUsersListProvider setSelectedUser={mockOnSelectUser}>
+        <UsersList />,
+      </MockedUsersListProvider>,
     );
     expect(screen.getAllByText(users[0].name)).toBeDefined();
     expect(screen.getByText(users[1].email)).toBeDefined();
@@ -20,7 +23,9 @@ describe("UserDialog", () => {
   });
   it("should set the selected user when a user is clicked", () => {
     renderWithProviders(
-      <UsersList users={users} onSelectUser={mockOnSelectUser} />,
+      <MockedUsersListProvider setSelectedUser={mockOnSelectUser}>
+        <UsersList />
+      </MockedUsersListProvider>,
     );
     screen.getAllByText(users[0].name)[0].click();
     expect(mockOnSelectUser).toHaveBeenCalledWith(users[0]);

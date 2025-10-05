@@ -1,12 +1,8 @@
 import { Dialog } from "../ui";
-import type { User } from "../types";
 import styled from "styled-components";
 import profilePic from "../assets/profilePic.jpg";
-
-interface UserDialogProps {
-  selectedUser: User | null;
-  setSelectedUser: React.Dispatch<React.SetStateAction<User | null>>;
-}
+import { UsersListContext } from "../providers";
+import { useContext } from "react";
 
 const UserProfileContainer = styled.div`
   display: flex;
@@ -103,19 +99,17 @@ const StatusText = styled.span<{ $status: "active" | "inactive" }>`
   text-transform: capitalize;
 `;
 
-export const UserDialog = ({
-  selectedUser,
-  setSelectedUser,
-}: UserDialogProps) => {
+export const UserDialog = () => {
+  const { selectedUser, setSelectedUser } = useContext(UsersListContext);
   const onOpenChange = (open: boolean) => {
     if (!open) {
-      setSelectedUser(null);
+      setSelectedUser(undefined);
     }
   };
 
   return (
     <Dialog
-      open={selectedUser !== null}
+      open={selectedUser !== undefined}
       onOpenChange={onOpenChange}
       ariaTitle="User Details"
     >

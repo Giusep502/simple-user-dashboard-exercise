@@ -3,9 +3,8 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Filters } from "../Filters";
 import { renderWithProviders } from "./utils";
-import { users } from "./mocks";
-import { UsersListContext } from "../../providers/Contexts";
 import type { Filter } from "../../types";
+import { MockedUsersListProvider } from "./mocks/MockedUserListProvider";
 
 const mockSetFilters = vi.fn((valueOrFunction) => {
   if (typeof valueOrFunction === "function") {
@@ -14,34 +13,10 @@ const mockSetFilters = vi.fn((valueOrFunction) => {
   return valueOrFunction;
 });
 
-const MockedUsersListProvider = ({
-  children,
-  setFilters,
-  currentFilters,
-}: {
-  children: React.ReactNode;
-  setFilters?: typeof mockSetFilters;
-  currentFilters?: Filter[];
-}) => {
-  return (
-    <UsersListContext.Provider
-      value={{
-        users: users,
-        filteredUsers: users,
-        filters: currentFilters ?? [],
-        status: "loaded" as const,
-        setFilters: setFilters ?? mockSetFilters,
-      }}
-    >
-      {children}
-    </UsersListContext.Provider>
-  );
-};
-
 describe("Filters", () => {
   it("should display the filters and the data", () => {
     renderWithProviders(
-      <MockedUsersListProvider>
+      <MockedUsersListProvider setFilters={mockSetFilters}>
         <Filters />
       </MockedUsersListProvider>,
     );
@@ -56,7 +31,7 @@ describe("Filters", () => {
 
   it("should call the setFilters function properly for role filters", () => {
     renderWithProviders(
-      <MockedUsersListProvider>
+      <MockedUsersListProvider setFilters={mockSetFilters}>
         <Filters />
       </MockedUsersListProvider>,
     );
@@ -77,7 +52,7 @@ describe("Filters", () => {
   it("should search by name properly", async () => {
     const user = userEvent.setup();
     renderWithProviders(
-      <MockedUsersListProvider>
+      <MockedUsersListProvider setFilters={mockSetFilters}>
         <Filters />
       </MockedUsersListProvider>,
     );

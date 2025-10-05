@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { X } from "lucide-react";
 import styled, { useTheme } from "styled-components";
-import type { User } from "../types";
 import { UserDialog, Filters, UsersList } from "../components";
 import { Spinner } from "../ui";
 import { UsersListContext } from "../providers";
@@ -21,8 +20,7 @@ const ErrorDiv = styled.div`
 `;
 
 export const UsersListPage = () => {
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const { filteredUsers, status } = useContext(UsersListContext);
+  const { status } = useContext(UsersListContext);
   const theme = useTheme();
 
   if (status === "idle") {
@@ -48,12 +46,9 @@ export const UsersListPage = () => {
 
   return (
     <>
-      <UserDialog
-        selectedUser={selectedUser}
-        setSelectedUser={setSelectedUser}
-      />
+      <UserDialog />
       <Filters />
-      <UsersList users={filteredUsers} onSelectUser={setSelectedUser} />
+      <UsersList />
     </>
   );
 };

@@ -14,6 +14,7 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
   const [users, setUsers] = useState<User[]>([]);
   const [status, setStatus] = useState<Status>("idle");
   const [filters, setFilters] = useState<Filter[]>([]);
+  const [selectedUser, setSelectedUser] = useState<User | undefined>();
   const { getUsers } = useUsersList();
 
   const initUsers = async () => {
@@ -57,6 +58,8 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
         filters,
         status,
         setFilters,
+        setSelectedUser,
+        selectedUser,
       }}
     >
       {children}

@@ -1,14 +1,17 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { screen } from "@testing-library/react";
 import { UserDialog } from "../UserDialog";
 import { users } from "./mocks";
 import { renderWithProviders } from "./utils";
 import profilePic from "../../assets/profilePic.jpg";
+import { MockedUsersListProvider } from "./mocks/MockedUserListProvider";
 
 describe("UserDialog", () => {
   it("should display user's text details", () => {
     renderWithProviders(
-      <UserDialog selectedUser={users[0]} setSelectedUser={() => {}} />,
+      <MockedUsersListProvider selectedUser={users[0]}>
+        <UserDialog />
+      </MockedUsersListProvider>,
     );
     expect(screen.getByText(users[0].name)).toBeDefined();
     expect(screen.getByText(users[0].id)).toBeDefined();
@@ -18,7 +21,9 @@ describe("UserDialog", () => {
   });
   it("should display a placeholder image when user has no profile picture", () => {
     renderWithProviders(
-      <UserDialog selectedUser={users[0]} setSelectedUser={() => {}} />,
+      <MockedUsersListProvider selectedUser={users[0]}>
+        <UserDialog />,
+      </MockedUsersListProvider>,
     );
     expect(
       screen.getByAltText(`${users[0].name}'s profile picture`),
@@ -27,12 +32,30 @@ describe("UserDialog", () => {
     expect(image).toBeDefined();
     expect(image).toHaveProperty("src", window.location.origin + profilePic);
   });
-  it("should display user'sprofile picture", () => {
+  it("should display user's profile picture", () => {
     renderWithProviders(
-      <UserDialog selectedUser={users[1]} setSelectedUser={() => {}} />,
+      <MockedUsersListProvider selectedUser={users[1]}>
+        <UserDialog />
+      </MockedUsersListProvider>,
     );
     const image = screen.getByAltText(`${users[1].name}'s profile picture`);
     expect(image).toBeDefined();
     expect(image).toHaveProperty("src", users[1].profile_picture_url);
+  });
+
+  it("should close when the close button is clicked", () => {
+    const setSelectedUser = vi.fn();
+    renderWithProviders(
+      <MockedUsersListProvider
+        selectedUser={users[1]}
+        setSelectedUser={setSelectedUser}
+      >
+        <UserDialog />
+      </MockedUsersListProvider>,
+    );
+    const closeButton = screen.getByLabelText("Close dialog");
+    expect(closeButton).toBeDefined();
+    closeButton.click();
+    expect(setSelectedUser).toHaveBeenCalledWith(undefined);
   });
 });

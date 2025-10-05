@@ -8,10 +8,6 @@ const StyledPageLayout = styled.div`
   max-width: 900px;
   height: 100vh;
   margin: 0 auto;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.medium}px) {
-    max-width: 600px;
-  }
 `;
 
 const Main = styled.main`

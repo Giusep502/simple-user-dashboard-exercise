@@ -34,9 +34,10 @@ const Th = styled.th`
 
 const Tr = styled.tr`
   cursor: pointer;
+  /** TODO: Use grid visualization INSTEAD of table */
+  display: grid;
+  grid-template-columns: 0.8fr 80px 1.2fr 50px;
   @media (max-width: ${({ theme }) => theme.breakpoints.small}px) {
-    /** TODO: Refactor whole table to use grid visualization */
-    display: grid;
     grid-template-columns: 1fr 80px 50px;
   }
 `;
@@ -52,8 +53,9 @@ const EllipsisDiv = styled.div`
 `;
 
 const NameDiv = styled(EllipsisDiv)``;
+const EmailDiv = styled(EllipsisDiv)``;
 
-const MobileEmail = styled(EllipsisDiv)`
+const MobileEmail = styled(EmailDiv)`
   font-size: ${({ theme }) => theme.fontSize.small};
 `;
 
@@ -102,7 +104,11 @@ export const UsersList = () => {
               {breakpointIndex < 1 && <MobileEmail>{user.email}</MobileEmail>}
             </Td>
             <Td>{user.role}</Td>
-            {breakpointIndex > 0 && <Td>{user.email}</Td>}
+            {breakpointIndex > 0 && (
+              <Td>
+                <EmailDiv>{user.email}</EmailDiv>
+              </Td>
+            )}
             <CenteredTd>
               <IconButton
                 Icon={ChevronRightIcon}

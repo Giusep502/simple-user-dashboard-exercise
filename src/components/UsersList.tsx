@@ -57,6 +57,13 @@ const MobileEmail = styled(EllipsisDiv)`
   font-size: ${({ theme }) => theme.fontSize.small};
 `;
 
+const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
 export const UsersList = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const { users, status } = useContext(UsersListContext);
@@ -66,7 +73,11 @@ export const UsersList = () => {
     return null;
   }
   if (status === "loading") {
-    return <Spinner />;
+    return (
+      <SpinnerContainer>
+        <Spinner />
+      </SpinnerContainer>
+    );
   }
 
   return (

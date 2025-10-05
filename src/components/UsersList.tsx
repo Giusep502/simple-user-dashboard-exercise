@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { ChevronRightIcon } from "lucide-react";
-import styled from "styled-components";
+import { ChevronRightIcon, X } from "lucide-react";
+import styled, { useTheme } from "styled-components";
 import { UsersListContext } from "../providers";
 import type { User } from "../types";
 import { UserDialog } from "./UserDialog";
@@ -67,19 +67,37 @@ const SpinnerContainer = styled.div`
   height: 100%;
 `;
 
+const ErrorDiv = styled.div`
+  padding: ${({ theme }) => theme.spacing.large};
+  display: flex;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.small};
+`;
+
 export const UsersList = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const { filteredUsers, status } = useContext(UsersListContext);
   const breakpointIndex = useBreakpointIndex();
+  const theme = useTheme();
 
   if (status === "idle") {
     return null;
   }
+
   if (status === "loading") {
     return (
       <SpinnerContainer>
         <Spinner />
       </SpinnerContainer>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <ErrorDiv>
+        <X size={24} color={theme.fill.error} /> Error fetching users. Refresh
+        the page to try again."
+      </ErrorDiv>
     );
   }
 

@@ -49,6 +49,7 @@ const defaultTheme = {
     accent: "#007BFF",
     success: "#28A745",
     inactive: "#6C757D",
+    error: "#FF0000",
   },
   background: {
     default: "#FFFFFF",
@@ -96,6 +97,7 @@ const darkTheme: Theme = {
     accent: "#4DA6FF",
     success: "#70E385",
     inactive: "#A0A0A0",
+    error: "#FF0000",
   },
   background: {
     default: "#1A1A1A",

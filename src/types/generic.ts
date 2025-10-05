@@ -10,4 +10,4 @@ export type Filter =
       value: string;
     };
 
-export type Status = "idle" | "loading" | "loaded";
+export type Status = "idle" | "loading" | "loaded" | "error";

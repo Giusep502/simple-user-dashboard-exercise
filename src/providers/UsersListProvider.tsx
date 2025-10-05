@@ -17,8 +17,14 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
   const { getUsers } = useUsersList();
 
   const initUsers = async () => {
+    if (status !== "idle") return;
+
     setStatus("loading");
     const resultUsers = await getUsers();
+    if (!resultUsers) {
+      setStatus("error");
+      return;
+    }
     setUsers(resultUsers);
     setStatus("loaded");
   };

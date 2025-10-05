@@ -1,50 +1,103 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { ChevronRightIcon } from "lucide-react";
+import styled from "styled-components";
 import { UsersListContext } from "../providers";
 import type { User } from "../types";
-import { Dialog } from "../ui";
-import { useState } from "react";
+import { UserDialog } from "./UserDialog";
+import { IconButton, Spinner } from "../ui";
+import { useBreakpointIndex } from "../hooks/useBreakpoints";
+
+const Table = styled.table`
+  width: 100%;
+`;
+
+const TableHead = styled.thead`
+  background-color: ${({ theme }) => theme.surface.default};
+  text-align: left;
+`;
+
+const Td = styled.td`
+  padding: ${({ theme }) => theme.spacing.medium};
+  overflow: hidden;
+  margin: auto 0;
+`;
+
+const CenteredTd = styled(Td)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Th = styled.th`
+  padding: ${({ theme }) => theme.spacing.medium};
+`;
+
+const Tr = styled.tr`
+  cursor: pointer;
+  @media (max-width: ${({ theme }) => theme.breakpoints.small}px) {
+    /** TODO: Refactor table to use grid visualization */
+    display: grid;
+    grid-template-columns: 1fr 80px 50px;
+  }
+`;
+
+const HeadTr = styled(Tr)`
+  cursor: default;
+`;
+
+const EllipsisDiv = styled.div`
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`;
+
+const NameDiv = styled(EllipsisDiv)``;
+
+const MobileEmail = styled(EllipsisDiv)`
+  font-size: ${({ theme }) => theme.fontSize.small};
+`;
 
 export const UsersList = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const { users, status } = useContext(UsersListContext);
-
-  console.log(selectedUser);
+  const breakpointIndex = useBreakpointIndex();
 
   if (status === "idle") {
     return null;
   }
   if (status === "loading") {
-    return "Loading";
+    return <Spinner />;
   }
-
-  const onOpenChange = (open: boolean) => {
-    if (!open) {
-      setSelectedUser(null);
-    }
-  };
 
   return (
     <>
-      <Dialog
-        open={selectedUser !== null}
-        onOpenChange={onOpenChange}
-        ariaTitle="User Details"
-      >
-        <div>{selectedUser?.name}</div>
-        <div>{selectedUser?.role}</div>
-        <div>{selectedUser?.email}</div>
-        <div>{selectedUser?.status}</div>
-        <div>{selectedUser?.profile_picture_url}</div>
-      </Dialog>
-      {users.map((user, index) => (
-        <div key={user.id} onClick={() => setSelectedUser(user)}>
-          <div>{user.name}</div>
-          <div>{user.role}</div>
-          <div>
-            {index + 1} of {users.length}
-          </div>
-        </div>
-      ))}
+      <UserDialog
+        selectedUser={selectedUser}
+        setSelectedUser={setSelectedUser}
+      />
+      <Table>
+        <TableHead>
+          <HeadTr>
+            <Th>{breakpointIndex > 0 ? "Name" : "Credentials"}</Th>
+            <Th>Role</Th>
+            {breakpointIndex > 0 && <Th>Email</Th>}
+            <Th></Th>
+          </HeadTr>
+        </TableHead>
+        {users.map((user) => (
+          <Tr key={user.id} onClick={() => setSelectedUser(user)}>
+            <Td>
+              <NameDiv>{user.name}</NameDiv>
+              {breakpointIndex < 1 && <MobileEmail>{user.email}</MobileEmail>}
+            </Td>
+            <Td>{user.role}</Td>
+            {breakpointIndex > 0 && <Td>{user.email}</Td>}
+            <CenteredTd>
+              <IconButton Icon={ChevronRightIcon} ariaLabel="View user" />
+            </CenteredTd>
+          </Tr>
+        ))}
+      </Table>
     </>
   );
 };

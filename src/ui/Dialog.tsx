@@ -17,7 +17,6 @@ const StyledOverlay = styled(RadixDialog.Overlay)`
   right: 0;
   bottom: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;

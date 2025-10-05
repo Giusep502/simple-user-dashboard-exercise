@@ -1,8 +1,8 @@
 const baseTheme = {
   breakpoints: {
-    small: "600px",
-    medium: "900px",
-    large: "1200px",
+    small: 600,
+    medium: 900,
+    large: 1200,
   },
   fontFamily: {
     primary: "system-ui, Avenir, Helvetica, Arial, sans-serif",

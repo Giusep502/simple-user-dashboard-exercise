@@ -27,7 +27,7 @@ export const IconButton = ({
   ariaLabel,
 }: {
   Icon: LucideIcon;
-  ariaLabel?: string;
+  ariaLabel: string;
 }) => {
   const theme = useTheme();
   return (

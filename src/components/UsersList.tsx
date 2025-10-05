@@ -99,26 +99,28 @@ export const UsersList = () => {
             <Th></Th>
           </HeadTr>
         </TableHead>
-        {filteredUsers.map((user) => (
-          <Tr key={user.id} onClick={() => setSelectedUser(user)}>
-            <Td>
-              <NameDiv>{user.name}</NameDiv>
-              {breakpointIndex < 1 && <MobileEmail>{user.email}</MobileEmail>}
-            </Td>
-            <Td>{user.role}</Td>
-            {breakpointIndex > 0 && (
+        <tbody>
+          {filteredUsers.map((user) => (
+            <Tr key={user.id} onClick={() => setSelectedUser(user)}>
               <Td>
-                <EmailDiv>{user.email}</EmailDiv>
+                <NameDiv>{user.name}</NameDiv>
+                {breakpointIndex < 1 && <MobileEmail>{user.email}</MobileEmail>}
               </Td>
-            )}
-            <CenteredTd>
-              <IconButton
-                Icon={ChevronRightIcon}
-                ariaLabel={`View details of user: ${user.name}`}
-              />
-            </CenteredTd>
-          </Tr>
-        ))}
+              <Td>{user.role}</Td>
+              {breakpointIndex > 0 && (
+                <Td>
+                  <EmailDiv>{user.email}</EmailDiv>
+                </Td>
+              )}
+              <CenteredTd>
+                <IconButton
+                  Icon={ChevronRightIcon}
+                  ariaLabel={`View details of user: ${user.name}`}
+                />
+              </CenteredTd>
+            </Tr>
+          ))}
+        </tbody>
       </Table>
     </>
   );

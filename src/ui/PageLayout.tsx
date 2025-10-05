@@ -1,5 +1,8 @@
-import type { PropsWithChildren } from "react";
+import { useContext, type PropsWithChildren } from "react";
 import styled from "styled-components";
+import { IconButton } from "./IconButton";
+import { Moon } from "lucide-react";
+import { ThemeContext } from "../providers";
 
 const StyledPageLayout = styled.div`
   display: flex;
@@ -15,10 +18,10 @@ const Main = styled.main`
 `;
 
 const Header = styled.header`
-  text-align: center;
   padding: ${({ theme }) => theme.spacing.large};
-  font-size: ${({ theme }) => theme.fontSize.large};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Footer = styled.footer`
@@ -29,10 +32,32 @@ const Footer = styled.footer`
   border-top: 1px solid ${({ theme }) => theme.border.default};
 `;
 
+const Title = styled.h1`
+  text-align: center;
+  padding: 0 ${({ theme }) => theme.spacing.large};
+  font-size: ${({ theme }) => theme.fontSize.large};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  margin: 0;
+`;
+
 export const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
+  const { setMode } = useContext(ThemeContext);
+
+  const handleToggleTheme = () => {
+    setMode((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
   return (
     <StyledPageLayout>
-      <Header>Simple Users Dashboard</Header>
+      <Header>
+        <div />
+        <Title>Simple Users Dashboard</Title>
+        <IconButton
+          Icon={Moon}
+          ariaLabel="Toggle Dark Mode"
+          onClick={handleToggleTheme}
+        />
+      </Header>
       <Main>{children}</Main>
       <Footer>Made with ❤️ by Giuseppe Di Francesco</Footer>
     </StyledPageLayout>

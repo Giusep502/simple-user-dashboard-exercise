@@ -6,6 +6,7 @@ import type { User } from "../types";
 import { UserDialog } from "./UserDialog";
 import { IconButton, Spinner } from "../ui";
 import { useBreakpointIndex } from "../hooks/useBreakpoints";
+import { Filters } from "./Filters";
 
 const Table = styled.table`
   width: 100%;
@@ -68,7 +69,7 @@ const SpinnerContainer = styled.div`
 
 export const UsersList = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const { users, status } = useContext(UsersListContext);
+  const { filteredUsers, status } = useContext(UsersListContext);
   const breakpointIndex = useBreakpointIndex();
 
   if (status === "idle") {
@@ -88,6 +89,7 @@ export const UsersList = () => {
         selectedUser={selectedUser}
         setSelectedUser={setSelectedUser}
       />
+      <Filters />
       <Table>
         <TableHead>
           <HeadTr>
@@ -97,7 +99,7 @@ export const UsersList = () => {
             <Th></Th>
           </HeadTr>
         </TableHead>
-        {users.map((user) => (
+        {filteredUsers.map((user) => (
           <Tr key={user.id} onClick={() => setSelectedUser(user)}>
             <Td>
               <NameDiv>{user.name}</NameDiv>
@@ -112,7 +114,7 @@ export const UsersList = () => {
             <CenteredTd>
               <IconButton
                 Icon={ChevronRightIcon}
-                ariaLabel={"View details of user: " + user.name}
+                ariaLabel={`View details of user: ${user.name}`}
               />
             </CenteredTd>
           </Tr>

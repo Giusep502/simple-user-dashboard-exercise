@@ -23,7 +23,19 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
     setStatus("loaded");
   };
 
-  const filteredUsers = useMemo(() => users, [users]);
+  const filteredUsers = useMemo(() => {
+    if (filters.length === 0) return users;
+    return users.filter((user) => {
+      return filters.every((filter) => {
+        if (filter.type === "role") {
+          return filter.value.includes(user.role);
+        }
+        if (filter.type === "name") {
+          return user.name.toLowerCase().includes(filter.value.toLowerCase());
+        }
+      });
+    });
+  }, [users, filters]);
 
   useEffect(() => {
     initUsers();

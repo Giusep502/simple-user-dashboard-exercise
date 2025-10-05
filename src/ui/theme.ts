@@ -62,6 +62,15 @@ const defaultTheme = {
     outline: "#2C92FF",
     text: "#FFFFFF",
   },
+  secondaryButton: {
+    background: {
+      default: "#FFFFFF",
+      hover: "#F0F0F0",
+      pressed: "#E0E0E0",
+    },
+    outline: "#2C92FF",
+    text: "#000000",
+  },
   iconButton: {
     hover: "#F0F0F0",
     outline: "#777777",
@@ -102,6 +111,15 @@ const darkTheme: Theme = {
     },
     outline: "#3588D8",
     text: "#FFFFFF",
+  },
+  secondaryButton: {
+    background: {
+      default: "#000",
+      hover: "#202020",
+      pressed: "#303030",
+    },
+    outline: "#3588D8",
+    text: "#FFF",
   },
   iconButton: {
     hover: "#202020",

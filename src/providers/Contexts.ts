@@ -7,7 +7,7 @@ interface IUsersListContext {
   filteredUsers: User[];
   filters: Filter[];
   status: Status;
-  setFilters: (filters: Filter[]) => void;
+  setFilters: React.Dispatch<React.SetStateAction<Filter[]>>;
 }
 
 const defaultUserListValues = {

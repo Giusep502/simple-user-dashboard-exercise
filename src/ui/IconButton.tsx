@@ -1,5 +1,6 @@
 import { type LucideIcon } from "lucide-react";
 import styled, { useTheme } from "styled-components";
+import type { Theme } from "./theme";
 
 const StyledButton = styled.button`
   background-color: transparent;
@@ -25,14 +26,18 @@ const StyledButton = styled.button`
 export const IconButton = ({
   Icon,
   ariaLabel,
+  onClick,
+  color = "primary",
 }: {
   Icon: LucideIcon;
   ariaLabel: string;
+  onClick?: () => void;
+  color?: keyof Theme["fill"];
 }) => {
   const theme = useTheme();
   return (
-    <StyledButton aria-label={ariaLabel}>
-      <Icon size={24} color={theme.fill.primary} />
+    <StyledButton aria-label={ariaLabel} onClick={onClick}>
+      <Icon size={24} color={theme.fill[color]} />
     </StyledButton>
   );
 };

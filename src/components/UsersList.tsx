@@ -35,7 +35,7 @@ const Th = styled.th`
 const Tr = styled.tr`
   cursor: pointer;
   @media (max-width: ${({ theme }) => theme.breakpoints.small}px) {
-    /** TODO: Refactor table to use grid visualization */
+    /** TODO: Refactor whole table to use grid visualization */
     display: grid;
     grid-template-columns: 1fr 80px 50px;
   }
@@ -93,7 +93,10 @@ export const UsersList = () => {
             <Td>{user.role}</Td>
             {breakpointIndex > 0 && <Td>{user.email}</Td>}
             <CenteredTd>
-              <IconButton Icon={ChevronRightIcon} ariaLabel="View user" />
+              <IconButton
+                Icon={ChevronRightIcon}
+                ariaLabel={"View details of user: " + user.name}
+              />
             </CenteredTd>
           </Tr>
         ))}

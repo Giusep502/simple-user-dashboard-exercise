@@ -2,6 +2,8 @@ import * as RadixDialog from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import type { PropsWithChildren } from "react";
 import styled from "styled-components";
+import { IconButton } from "./IconButton";
+import { X } from "lucide-react";
 
 interface DialogProps {
   open: boolean;
@@ -28,6 +30,13 @@ const StyledContent = styled(RadixDialog.Content)`
   max-width: 90vw;
   max-height: 90vh;
   overflow-y: auto;
+  position: relative;
+`;
+
+const CloseWrapper = styled.div`
+  position: absolute;
+  top: ${({ theme }) => theme.spacing.medium};
+  right: ${({ theme }) => theme.spacing.medium};
 `;
 
 export const Dialog: React.FC<PropsWithChildren<DialogProps>> = ({
@@ -43,7 +52,14 @@ export const Dialog: React.FC<PropsWithChildren<DialogProps>> = ({
           <VisuallyHidden>
             <RadixDialog.Title>{ariaTitle}</RadixDialog.Title>
           </VisuallyHidden>
-          <StyledContent aria-describedby={undefined}>{children}</StyledContent>
+          <StyledContent aria-describedby={undefined}>
+            <CloseWrapper>
+              <RadixDialog.Close asChild>
+                <IconButton Icon={X} ariaLabel="Close dialog" />
+              </RadixDialog.Close>
+            </CloseWrapper>
+            {children}
+          </StyledContent>
         </StyledOverlay>
       </RadixDialog.Portal>
     </RadixDialog.Root>

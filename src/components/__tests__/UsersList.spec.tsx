@@ -3,7 +3,7 @@ import { screen } from "@testing-library/react";
 import { users } from "./mocks";
 import { renderWithProviders } from "./utils";
 import { UsersList } from "../UsersList";
-import { MockedUsersListProvider } from "./mocks/MockedUserListProvider";
+import { MockedUsersListProvider } from "./mocks";
 
 const mockOnSelectUser = vi.fn();
 

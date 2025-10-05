@@ -4,7 +4,7 @@ import { UserDialog } from "../UserDialog";
 import { users } from "./mocks";
 import { renderWithProviders } from "./utils";
 import profilePic from "../../assets/profilePic.jpg";
-import { MockedUsersListProvider } from "./mocks/MockedUserListProvider";
+import { MockedUsersListProvider } from "./mocks";
 
 describe("UserDialog", () => {
   it("should display user's text details", () => {

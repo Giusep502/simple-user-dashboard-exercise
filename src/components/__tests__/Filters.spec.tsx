@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { Filters } from "../Filters";
 import { renderWithProviders } from "./utils";
 import type { Filter } from "../../types";
-import { MockedUsersListProvider } from "./mocks/MockedUserListProvider";
+import { MockedUsersListProvider } from "./mocks";
 
 const mockSetFilters = vi.fn((valueOrFunction) => {
   if (typeof valueOrFunction === "function") {

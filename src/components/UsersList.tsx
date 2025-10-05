@@ -62,7 +62,7 @@ export const UsersList = () => {
   const breakpointIndex = useBreakpointIndex();
 
   return (
-    <Table>
+    <Table data-testid="users-list">
       <TableHead>
         <HeadTr>
           <Th>{breakpointIndex > 0 ? "Name" : "Credentials"}</Th>

@@ -154,7 +154,7 @@ export const Filters = () => {
   const hasActiveFilters = filters.length > 0;
 
   return (
-    <FiltersContainer>
+    <FiltersContainer data-testid="filters-container">
       <FilterGroup>
         <FilterLabel htmlFor="name-filter">Search by Name</FilterLabel>
         <SearchContainer>

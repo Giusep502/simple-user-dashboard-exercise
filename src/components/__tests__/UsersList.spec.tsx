@@ -7,7 +7,7 @@ import { MockedUsersListProvider } from "../../__tests__/mocks";
 
 const mockOnSelectUser = vi.fn();
 
-describe("UserDialog", () => {
+describe("UsersList", () => {
   it("should display users details", () => {
     renderWithProviders(
       <MockedUsersListProvider setSelectedUser={mockOnSelectUser}>

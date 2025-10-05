@@ -54,7 +54,7 @@ const UserRole = styled.div`
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   color: ${({ theme }) => theme.text.secondary};
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: ${({ theme }) => theme.letterSpacing.medium};
 `;
 
 const UserDetails = styled.div`
@@ -73,7 +73,7 @@ const DetailLabel = styled.span`
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   color: ${({ theme }) => theme.text.secondary};
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: ${({ theme }) => theme.letterSpacing.medium};
 `;
 
 const DetailValue = styled.span`
@@ -88,18 +88,18 @@ const StatusContainer = styled.div`
   gap: ${({ theme }) => theme.spacing.small};
 `;
 
-const StatusIndicator = styled.div<{ status: "active" | "inactive" }>`
+const StatusIndicator = styled.div<{ $status: "active" | "inactive" }>`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: ${({ theme, status }) =>
-    status === "active" ? theme.fill.success : theme.fill.inactive};
+  background: ${({ theme, $status }) =>
+    $status === "active" ? theme.fill.success : theme.fill.inactive};
 `;
 
-const StatusText = styled.span<{ status: "active" | "inactive" }>`
+const StatusText = styled.span<{ $status: "active" | "inactive" }>`
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  color: ${({ theme, status }) =>
-    status === "active" ? theme.fill.success : theme.fill.inactive};
+  color: ${({ theme, $status }) =>
+    $status === "active" ? theme.fill.success : theme.fill.inactive};
   text-transform: capitalize;
 `;
 
@@ -143,8 +143,8 @@ export const UserDialog = ({
           <DetailRow>
             <DetailLabel>Status</DetailLabel>
             <StatusContainer>
-              <StatusIndicator status={selectedUser.status} />
-              <StatusText status={selectedUser.status}>
+              <StatusIndicator $status={selectedUser.status} />
+              <StatusText $status={selectedUser.status}>
                 {selectedUser.status}
               </StatusText>
             </StatusContainer>

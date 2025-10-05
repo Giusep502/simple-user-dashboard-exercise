@@ -17,6 +17,9 @@ const baseTheme = {
     medium: 500,
     bold: 700,
   },
+  letterSpacing: {
+    medium: "0.5px",
+  },
   lineHeight: {
     small: "16px",
     medium: "24px",

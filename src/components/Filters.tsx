@@ -31,7 +31,7 @@ const FilterLabel = styled.label`
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   color: ${({ theme }) => theme.text.secondary};
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: ${({ theme }) => theme.letterSpacing.medium};
 `;
 
 const SearchInput = styled.input`
@@ -170,7 +170,7 @@ export const Filters = () => {
       </FilterGroup>
 
       <FilterGroup>
-        <FilterLabel>Filter by Role</FilterLabel>
+        <FilterLabel as="span">Filter by Role</FilterLabel>
         <RoleFilterContainer>
           {availableRoles.map((role) => (
             <RoleCheckbox key={role}>

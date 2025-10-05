@@ -1,10 +1,10 @@
 import { describe, it, expect, vi } from "vitest";
 import { screen } from "@testing-library/react";
 import { UserDialog } from "../UserDialog";
-import { users } from "./mocks";
-import { renderWithProviders } from "./utils";
+import { users } from "../../__tests__/mocks";
+import { renderWithProviders } from "../../__tests__/utils";
 import profilePic from "../../assets/profilePic.jpg";
-import { MockedUsersListProvider } from "./mocks";
+import { MockedUsersListProvider } from "../../__tests__/mocks";
 
 describe("UserDialog", () => {
   it("should display user's text details", () => {

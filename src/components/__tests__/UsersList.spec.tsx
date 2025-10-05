@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
 import { screen } from "@testing-library/react";
-import { users } from "./mocks";
-import { renderWithProviders } from "./utils";
+import { users } from "../../__tests__/mocks";
+import { renderWithProviders } from "../../__tests__/utils";
 import { UsersList } from "../UsersList";
-import { MockedUsersListProvider } from "./mocks";
+import { MockedUsersListProvider } from "../../__tests__/mocks";
 
 const mockOnSelectUser = vi.fn();
 

@@ -1,8 +1,8 @@
-import { UsersListContext } from "../../../providers";
+import { UsersListContext } from "../../providers";
 import { users } from "./users";
-import type { Filter } from "../../../types";
+import type { Filter } from "../../types";
 import { type Mock } from "vitest";
-import type { User } from "../../../types";
+import type { User } from "../../types";
 
 export const MockedUsersListProvider = ({
   children,

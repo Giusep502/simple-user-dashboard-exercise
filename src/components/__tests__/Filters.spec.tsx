@@ -2,9 +2,9 @@ import { describe, it, expect, vi } from "vitest";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Filters } from "../Filters";
-import { renderWithProviders } from "./utils";
+import { renderWithProviders } from "../../__tests__/utils";
 import type { Filter } from "../../types";
-import { MockedUsersListProvider } from "./mocks";
+import { MockedUsersListProvider } from "../../__tests__/mocks";
 
 const mockSetFilters = vi.fn((valueOrFunction) => {
   if (typeof valueOrFunction === "function") {

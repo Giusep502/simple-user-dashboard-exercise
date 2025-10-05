@@ -113,49 +113,49 @@ export const UserDialog = ({
     }
   };
 
-  if (!selectedUser) return null;
-
   return (
     <Dialog
       open={selectedUser !== null}
       onOpenChange={onOpenChange}
       ariaTitle="User Details"
     >
-      <UserProfileContainer>
-        <UserHeader>
-          <AvatarContainer>
-            <AvatarImage
-              src={selectedUser.profile_picture_url || profilePic}
-              alt={`${selectedUser.name}'s profile picture`}
-            />
-          </AvatarContainer>
+      {selectedUser && (
+        <UserProfileContainer>
+          <UserHeader>
+            <AvatarContainer>
+              <AvatarImage
+                src={selectedUser.profile_picture_url || profilePic}
+                alt={`${selectedUser.name}'s profile picture`}
+              />
+            </AvatarContainer>
 
-          <UserName>{selectedUser.name}</UserName>
-          <UserRole>{selectedUser.role}</UserRole>
-        </UserHeader>
+            <UserName>{selectedUser.name}</UserName>
+            <UserRole>{selectedUser.role}</UserRole>
+          </UserHeader>
 
-        <UserDetails>
-          <DetailRow>
-            <DetailLabel>Email</DetailLabel>
-            <DetailValue>{selectedUser.email}</DetailValue>
-          </DetailRow>
+          <UserDetails>
+            <DetailRow>
+              <DetailLabel>Email</DetailLabel>
+              <DetailValue>{selectedUser.email}</DetailValue>
+            </DetailRow>
 
-          <DetailRow>
-            <DetailLabel>Status</DetailLabel>
-            <StatusContainer>
-              <StatusIndicator $status={selectedUser.status} />
-              <StatusText $status={selectedUser.status}>
-                {selectedUser.status}
-              </StatusText>
-            </StatusContainer>
-          </DetailRow>
+            <DetailRow>
+              <DetailLabel>Status</DetailLabel>
+              <StatusContainer>
+                <StatusIndicator $status={selectedUser.status} />
+                <StatusText $status={selectedUser.status}>
+                  {selectedUser.status}
+                </StatusText>
+              </StatusContainer>
+            </DetailRow>
 
-          <DetailRow>
-            <DetailLabel>User ID</DetailLabel>
-            <DetailValue>{selectedUser.id}</DetailValue>
-          </DetailRow>
-        </UserDetails>
-      </UserProfileContainer>
+            <DetailRow>
+              <DetailLabel>User ID</DetailLabel>
+              <DetailValue>{selectedUser.id}</DetailValue>
+            </DetailRow>
+          </UserDetails>
+        </UserProfileContainer>
+      )}
     </Dialog>
   );
 };

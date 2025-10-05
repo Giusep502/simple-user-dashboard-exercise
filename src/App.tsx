@@ -1,7 +1,7 @@
 import { UsersList } from "./components";
 import { UsersListProvider } from "./providers";
 import { createGlobalStyle } from "styled-components";
-import { ThemeProvider } from "./providers/ThemeProvider";
+import { ThemeProvider } from "./providers";
 import { PageLayout } from "./ui";
 
 const GlobalStyles = createGlobalStyle`

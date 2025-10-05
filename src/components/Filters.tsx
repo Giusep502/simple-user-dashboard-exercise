@@ -119,7 +119,6 @@ export const Filters = () => {
   const roleFilter = filters.find((f) => f.type === "role")?.value || [];
 
   const handleNameFilterChange = (value: string) => {
-    console.log("handleNameFilterChange", value);
     if (value.trim()) {
       setFilters((prev) => [
         ...prev.filter((f) => f.type !== "name"),

@@ -1,8 +1,8 @@
-import { UsersList } from "./components";
 import { UsersListProvider } from "./providers";
 import { createGlobalStyle } from "styled-components";
 import { ThemeProvider } from "./providers";
 import { PageLayout } from "./ui";
+import { UsersListPage } from "./pages/UsersListPage";
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -27,7 +27,7 @@ function App() {
       <GlobalStyles />
       <PageLayout>
         <UsersListProvider>
-          <UsersList />
+          <UsersListPage />
         </UsersListProvider>
       </PageLayout>
     </ThemeProvider>

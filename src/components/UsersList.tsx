@@ -1,12 +1,8 @@
-import { useContext, useState } from "react";
-import { ChevronRightIcon, X } from "lucide-react";
-import styled, { useTheme } from "styled-components";
-import { UsersListContext } from "../providers";
+import { ChevronRightIcon } from "lucide-react";
+import styled from "styled-components";
 import type { User } from "../types";
-import { UserDialog } from "./UserDialog";
-import { IconButton, Spinner } from "../ui";
+import { IconButton } from "../ui";
 import { useBreakpointIndex } from "../hooks/useBreakpoints";
-import { Filters } from "./Filters";
 
 const Table = styled.table`
   width: 100%;
@@ -60,86 +56,44 @@ const MobileEmail = styled(EmailDiv)`
   font-size: ${({ theme }) => theme.fontSize.small};
 `;
 
-const SpinnerContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
-
-const ErrorDiv = styled.div`
-  padding: ${({ theme }) => theme.spacing.large};
-  display: flex;
-  justify-content: center;
-  gap: ${({ theme }) => theme.spacing.small};
-`;
-
-export const UsersList = () => {
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const { filteredUsers, status } = useContext(UsersListContext);
+export const UsersList: React.FC<{
+  users: User[];
+  onSelectUser: (user: User) => void;
+}> = ({ users, onSelectUser }) => {
   const breakpointIndex = useBreakpointIndex();
-  const theme = useTheme();
-
-  if (status === "idle") {
-    return null;
-  }
-
-  if (status === "loading") {
-    return (
-      <SpinnerContainer>
-        <Spinner />
-      </SpinnerContainer>
-    );
-  }
-
-  if (status === "error") {
-    return (
-      <ErrorDiv>
-        <X size={24} color={theme.fill.error} /> Error fetching users. Refresh
-        the page to try again."
-      </ErrorDiv>
-    );
-  }
 
   return (
-    <>
-      <UserDialog
-        selectedUser={selectedUser}
-        setSelectedUser={setSelectedUser}
-      />
-      <Filters />
-      <Table>
-        <TableHead>
-          <HeadTr>
-            <Th>{breakpointIndex > 0 ? "Name" : "Credentials"}</Th>
-            <Th>Role</Th>
-            {breakpointIndex > 0 && <Th>Email</Th>}
-            <Th></Th>
-          </HeadTr>
-        </TableHead>
-        <tbody>
-          {filteredUsers.map((user) => (
-            <Tr key={user.id} onClick={() => setSelectedUser(user)}>
+    <Table>
+      <TableHead>
+        <HeadTr>
+          <Th>{breakpointIndex > 0 ? "Name" : "Credentials"}</Th>
+          <Th>Role</Th>
+          {breakpointIndex > 0 && <Th>Email</Th>}
+          <Th></Th>
+        </HeadTr>
+      </TableHead>
+      <tbody>
+        {users.map((user) => (
+          <Tr key={user.id} onClick={() => onSelectUser(user)}>
+            <Td>
+              <NameDiv>{user.name}</NameDiv>
+              {breakpointIndex < 1 && <MobileEmail>{user.email}</MobileEmail>}
+            </Td>
+            <Td>{user.role}</Td>
+            {breakpointIndex > 0 && (
               <Td>
-                <NameDiv>{user.name}</NameDiv>
-                {breakpointIndex < 1 && <MobileEmail>{user.email}</MobileEmail>}
+                <EmailDiv>{user.email}</EmailDiv>
               </Td>
-              <Td>{user.role}</Td>
-              {breakpointIndex > 0 && (
-                <Td>
-                  <EmailDiv>{user.email}</EmailDiv>
-                </Td>
-              )}
-              <CenteredTd>
-                <IconButton
-                  Icon={ChevronRightIcon}
-                  ariaLabel={`View details of user: ${user.name}`}
-                />
-              </CenteredTd>
-            </Tr>
-          ))}
-        </tbody>
-      </Table>
-    </>
+            )}
+            <CenteredTd>
+              <IconButton
+                Icon={ChevronRightIcon}
+                ariaLabel={`View details of user: ${user.name}`}
+              />
+            </CenteredTd>
+          </Tr>
+        ))}
+      </tbody>
+    </Table>
   );
 };

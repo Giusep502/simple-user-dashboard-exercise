@@ -12,6 +12,7 @@ describe("UserDialog", () => {
     );
     expect(screen.getByText(users[0].name)).toBeDefined();
     expect(screen.getByText(users[0].id)).toBeDefined();
+    expect(screen.getByText(users[0].email)).toBeDefined();
     expect(screen.getByText(users[0].role)).toBeDefined();
     expect(screen.getByText(users[0].status)).toBeDefined();
   });

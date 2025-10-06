@@ -32,11 +32,16 @@ const Th = styled.th`
 
 const Tr = styled.tr`
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   /** TODO: Use grid visualization INSTEAD of table */
   display: grid;
   grid-template-columns: 0.8fr 80px 1.2fr 50px;
   @media (max-width: ${({ theme }) => theme.breakpoints.small}px) {
     grid-template-columns: 1fr 80px 50px;
+  }
+
+  &:active {
+    opacity: 0.6;
   }
 `;
 

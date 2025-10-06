@@ -117,6 +117,7 @@ export const Filters = () => {
     useContext(UsersListContext);
   const theme = useTheme();
   const roleFilter = filters.find((f) => f.type === "role")?.value || [];
+  const nameFilterValue = filters.find((f) => f.type === "name")?.value || "";
 
   const handleNameFilterChange = (value: string) => {
     if (value.trim()) {
@@ -161,6 +162,7 @@ export const Filters = () => {
           <SearchInput
             id="name-filter"
             type="text"
+            value={nameFilterValue}
             placeholder="Type a name to search..."
             onChange={(e) => handleNameFilterChange(e.target.value)}
           />

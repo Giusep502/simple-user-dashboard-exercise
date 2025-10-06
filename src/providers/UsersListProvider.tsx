@@ -17,6 +17,12 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
   const [selectedUser, setSelectedUser] = useState<User | undefined>();
   const { getUsers } = useUsersList();
 
+  const getUserFromQueryParam = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const selectedUserId = queryParams.get("id");
+    return selectedUserId ? parseInt(selectedUserId) : undefined;
+  };
+
   const initUsers = async () => {
     if (status !== "idle") return;
 
@@ -27,6 +33,10 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
       return;
     }
     setUsers(resultUsers);
+    const selectedUserId = getUserFromQueryParam();
+    if (selectedUserId) {
+      setSelectedUser(resultUsers.find((user) => user.id === selectedUserId));
+    }
     setStatus("loaded");
   };
 
@@ -50,6 +60,21 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const setUser = (user?: User) => {
+    setSelectedUser(user);
+    if (user) {
+      const queryParams = new URLSearchParams(window.location.search);
+      queryParams.set("id", user.id.toString());
+      window.history.pushState(
+        {},
+        "",
+        `${window.location.pathname}?${queryParams.toString()}`,
+      );
+    } else {
+      window.history.pushState({}, "", `${window.location.pathname}`);
+    }
+  };
+
   return (
     <UsersListContext
       value={{
@@ -58,7 +83,7 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
         filters,
         status,
         setFilters,
-        setSelectedUser,
+        setSelectedUser: setUser,
         selectedUser,
       }}
     >

@@ -32,6 +32,7 @@ const FilterLabel = styled.label`
   color: ${({ theme }) => theme.text.secondary};
   text-transform: uppercase;
   letter-spacing: ${({ theme }) => theme.letterSpacing.medium};
+  -webkit-tap-highlight-color: transparent;
 `;
 
 const SearchInput = styled.input`
@@ -79,6 +80,10 @@ const CheckboxInput = styled.input`
 const CheckboxLabel = styled.label`
   font-weight: ${({ theme }) => theme.fontWeight.medium};
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  &:active {
+    opacity: 0.6;
+  }
 `;
 
 const ResultsCount = styled.div`

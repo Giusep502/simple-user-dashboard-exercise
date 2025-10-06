@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const StyledButton = styled.button<{ $variant: "primary" | "secondary" }>`
+  -webkit-tap-highlight-color: transparent;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;

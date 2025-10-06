@@ -3,6 +3,7 @@ import styled, { useTheme } from "styled-components";
 import type { Theme } from "./theme";
 
 const StyledButton = styled.button`
+  -webkit-tap-highlight-color: transparent;
   background-color: transparent;
   cursor: pointer;
   border: none;

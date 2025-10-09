@@ -15,6 +15,10 @@ const StyledPageLayout = styled.div`
 
 const Main = styled.main`
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  /** TODO: Refactor, it works because of the stretch property */
+  height: 100px;
 `;
 
 const Header = styled.header`

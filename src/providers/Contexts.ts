@@ -10,6 +10,7 @@ interface IUsersListContext {
   status: Status;
   setFilters: React.Dispatch<React.SetStateAction<Filter[]>>;
   setSelectedUser: (user?: User) => void;
+  loadMore: () => Promise<void>;
 }
 
 const defaultUserListValues = {
@@ -19,6 +20,7 @@ const defaultUserListValues = {
   status: "idle",
   setFilters: () => {},
   setSelectedUser: () => {},
+  loadMore: () => Promise.resolve(),
 } as const as IUsersListContext;
 
 export const UsersListContext: React.Context<IUsersListContext> = createContext(

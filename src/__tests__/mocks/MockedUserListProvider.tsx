@@ -27,6 +27,7 @@ export const MockedUsersListProvider = ({
         setFilters: setFilters ?? (() => {}),
         setSelectedUser: setSelectedUser ?? (() => {}),
         selectedUser: selectedUser,
+        loadMore: () => Promise.resolve(),
       }}
     >
       {children}

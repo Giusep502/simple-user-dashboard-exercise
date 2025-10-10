@@ -2,6 +2,8 @@
 
 A modern React-based user dashboard application built with TypeScript, Vite, and styled-components. This project provides a clean interface for managing and viewing user data with filtering capabilities and responsive design.
 
+Preview here: https://simple-user-dashboard-exercise.vercel.app/
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -124,3 +126,7 @@ src/
 - Improve the UI, that is very basic, especially color wise.
 - Set up code coverage for unit tests
 - Refactor usage of Styled components
+
+### Commit Naming
+
+I used standard conventional commit, _sorry for not following that very much_

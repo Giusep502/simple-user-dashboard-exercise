@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { screen } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import { UserDialog } from "../UserDialog";
 import { users } from "../../__tests__/mocks";
 import { renderWithProviders } from "../../__tests__/utils";
@@ -55,7 +55,9 @@ describe("UserDialog", () => {
     );
     const closeButton = screen.getByLabelText("Close dialog");
     expect(closeButton).toBeDefined();
-    closeButton.click();
+    act(() => {
+      closeButton.click();
+    });
     expect(setSelectedUser).toHaveBeenCalledWith(undefined);
   });
 });

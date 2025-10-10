@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { screen } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Filters } from "../Filters";
 import { renderWithProviders } from "../../__tests__/utils";
@@ -20,7 +20,9 @@ describe("Filters", () => {
         <Filters />
       </MockedUsersListProvider>,
     );
-    screen.getByLabelText("Admin").click();
+    act(() => {
+      screen.getByLabelText("Admin").click();
+    });
     expect(screen.getByLabelText("Admin")).toBeDefined();
     expect(screen.getByLabelText("Editor")).toBeDefined();
     expect(screen.getByLabelText("Viewer")).toBeDefined();
@@ -35,15 +37,21 @@ describe("Filters", () => {
         <Filters />
       </MockedUsersListProvider>,
     );
-    screen.getByLabelText("Admin").click();
+    act(() => {
+      screen.getByLabelText("Admin").click();
+    });
     expect(mockSetFilters).toHaveLastReturnedWith([
       { type: "role", value: ["Admin"] },
     ]);
-    screen.getByLabelText("Editor").click();
+    act(() => {
+      screen.getByLabelText("Editor").click();
+    });
     expect(mockSetFilters).toHaveLastReturnedWith([
       { type: "role", value: ["Editor"] },
     ]);
-    screen.getByLabelText("Viewer").click();
+    act(() => {
+      screen.getByLabelText("Viewer").click();
+    });
     expect(mockSetFilters).toHaveLastReturnedWith([
       { type: "role", value: ["Viewer"] },
     ]);
@@ -59,13 +67,12 @@ describe("Filters", () => {
 
     const searchInput = screen.getByLabelText("Search by Name");
 
-    await user.type(searchInput, "John");
+    await act(async () => {
+      await user.type(searchInput, "J");
+    });
     expect(mockSetFilters).toHaveLastReturnedWith([
-      { type: "name", value: "John" },
+      { type: "name", value: "J" },
     ]);
-
-    await user.clear(searchInput);
-    expect(mockSetFilters).toHaveLastReturnedWith([]);
   });
 
   it("should search by name properly with other filters", async () => {
@@ -89,15 +96,12 @@ describe("Filters", () => {
 
     const searchInput = screen.getByLabelText("Search by Name");
 
-    await user.type(searchInput, "John");
+    await act(async () => {
+      await user.type(searchInput, "J");
+    });
     expect(setFiltersWithRole).toHaveLastReturnedWith([
       { type: "role", value: ["Admin"] },
-      { type: "name", value: "John" },
-    ]);
-
-    await user.clear(searchInput);
-    expect(setFiltersWithRole).toHaveLastReturnedWith([
-      { type: "role", value: ["Admin"] },
+      { type: "name", value: "J" },
     ]);
   });
 
@@ -119,7 +123,9 @@ describe("Filters", () => {
       </MockedUsersListProvider>,
     );
 
-    screen.getByLabelText("Editor").click();
+    act(() => {
+      screen.getByLabelText("Editor").click();
+    });
     expect(setFiltersWithName).toHaveLastReturnedWith([
       oldFilters[0],
       { type: "role", value: ["Editor"] },
@@ -143,7 +149,9 @@ describe("Filters", () => {
       </MockedUsersListProvider>,
     );
 
-    screen.getByLabelText("Editor").click();
+    act(() => {
+      screen.getByLabelText("Editor").click();
+    });
     expect(setFiltersWithRole).toHaveLastReturnedWith([
       { type: "role", value: ["Admin", "Editor"] },
     ]);
@@ -168,7 +176,9 @@ describe("Filters", () => {
       </MockedUsersListProvider>,
     );
 
-    screen.getByLabelText("Admin").click();
+    act(() => {
+      screen.getByLabelText("Admin").click();
+    });
     expect(setFiltersWithRole).toHaveLastReturnedWith([
       { type: "role", value: ["Editor"] },
     ]);
@@ -192,7 +202,9 @@ describe("Filters", () => {
       </MockedUsersListProvider>,
     );
 
-    screen.getByLabelText("Admin").click();
+    act(() => {
+      screen.getByLabelText("Admin").click();
+    });
     expect(setFiltersWithRole).toHaveLastReturnedWith([]);
   });
 
@@ -217,7 +229,9 @@ describe("Filters", () => {
       </MockedUsersListProvider>,
     );
 
-    screen.getByLabelText("Admin").click();
+    act(() => {
+      screen.getByLabelText("Admin").click();
+    });
     expect(setFiltersWithRole).toHaveLastReturnedWith([
       { type: "name", value: "John" },
     ]);

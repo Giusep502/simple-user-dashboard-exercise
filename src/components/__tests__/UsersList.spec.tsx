@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { screen } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import { users } from "../../__tests__/mocks";
 import { renderWithProviders } from "../../__tests__/utils";
 import { UsersList } from "../UsersList";
@@ -27,12 +27,16 @@ describe("UsersList", () => {
         <UsersList />
       </MockedUsersListProvider>,
     );
-    screen.getAllByText(users[0].name)[0].click();
+    act(() => {
+      screen.getAllByText(users[0].name)[0].click();
+    });
     expect(mockOnSelectUser).toHaveBeenCalledWith(users[0]);
 
-    screen
-      .getAllByLabelText(`View details of user: ${users[1].name}`)[0]
-      .click();
+    act(() => {
+      screen
+        .getAllByLabelText(`View details of user: ${users[1].name}`)[0]
+        .click();
+    });
     expect(mockOnSelectUser).toHaveBeenCalledWith(users[1]);
   });
 });

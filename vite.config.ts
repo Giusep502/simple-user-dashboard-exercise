@@ -7,5 +7,6 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
+    include: ["src/**/__tests__/*.spec.{js,ts,jsx,tsx}"],
   },
 } as UserConfig);

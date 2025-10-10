@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { renderWithProviders } from "../../__tests__/utils";
 import { UsersListProvider } from "../UsersListProvider";
 import { users } from "../../__tests__/mocks";
-import { useContext, useEffect } from "react";
+import { act, useContext, useEffect } from "react";
 import { UsersListContext } from "../Contexts";
 import type { User } from "../../types";
 
@@ -38,7 +38,7 @@ describe("UserListProvider", () => {
       expect(getUsers).toHaveResolved();
     });
 
-    expect(contextValues?.filteredUsers.length).toBe(100);
+    expect(contextValues?.filteredUsers.length).toBe(20);
     expect(contextValues?.filters.length).toBe(0);
     expect(contextValues?.status).toBe("loaded");
   });
@@ -51,34 +51,46 @@ describe("UserListProvider", () => {
     await vi.waitFor(() => {
       expect(contextValues?.status).toBe("loaded");
     });
-    contextValues.setFilters([{ type: "role", value: ["Viewer"] }]);
+    act(() => {
+      contextValues.setFilters([{ type: "role", value: ["Viewer"] }]);
+    });
     await vi.waitFor(() => {
       expect(contextValues?.filteredUsers).toEqual(
-        users.filter((user: User) => user.role === "Viewer"),
+        users.filter((user: User) => user.role === "Viewer").slice(0, 20),
       );
     });
-    contextValues.setFilters([{ type: "role", value: ["Admin"] }]);
+    act(() => {
+      contextValues.setFilters([{ type: "role", value: ["Admin"] }]);
+    });
     await vi.waitFor(() => {
       expect(contextValues?.filteredUsers).toEqual(
-        users.filter((user: User) => user.role === "Admin"),
+        users.filter((user: User) => user.role === "Admin").slice(0, 20),
       );
     });
-    contextValues.setFilters([{ type: "role", value: ["Editor", "Admin"] }]);
+    act(() => {
+      contextValues.setFilters([{ type: "role", value: ["Editor", "Admin"] }]);
+    });
     await vi.waitFor(() => {
       expect(contextValues?.filteredUsers).toEqual(
-        users.filter(
-          (user: User) => user.role === "Editor" || user.role === "Admin",
-        ),
+        users
+          .filter(
+            (user: User) => user.role === "Editor" || user.role === "Admin",
+          )
+          .slice(0, 20),
       );
     });
-    contextValues.setFilters([{ type: "name", value: "Ethan" }]);
+    act(() => {
+      contextValues.setFilters([{ type: "name", value: "Ethan" }]);
+    });
     await vi.waitFor(() => {
       expect(contextValues?.filteredUsers).toEqual(users.slice(0, 1));
     });
-    contextValues.setFilters([
-      { type: "name", value: "Ethan" },
-      { type: "role", value: ["Admin"] },
-    ]);
+    act(() => {
+      contextValues.setFilters([
+        { type: "name", value: "Ethan" },
+        { type: "role", value: ["Admin"] },
+      ]);
+    });
     await vi.waitFor(() => {
       expect(contextValues?.filteredUsers).toEqual(users.slice(0, 1));
     });

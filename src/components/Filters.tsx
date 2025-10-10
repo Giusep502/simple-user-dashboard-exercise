@@ -40,6 +40,7 @@ const SearchInput = styled.input`
   flex-grow: 1;
   padding-left: ${({ theme }) => theme.spacing.medium};
   font-size: ${({ theme }) => theme.fontSize.medium};
+  color: ${({ theme }) => theme.text.primary};
   border: 2px solid ${({ theme }) => theme.border.default};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   background: ${({ theme }) => theme.background.default};

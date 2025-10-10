@@ -47,6 +47,9 @@ const Tr = styled.tr`
 
 const HeadTr = styled(Tr)`
   cursor: default;
+  &:active {
+    opacity: 1;
+  }
 `;
 
 const EllipsisDiv = styled.div`

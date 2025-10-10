@@ -52,7 +52,12 @@ export const Dialog: React.FC<PropsWithChildren<DialogProps>> = ({
           <VisuallyHidden>
             <RadixDialog.Title>{ariaTitle}</RadixDialog.Title>
           </VisuallyHidden>
-          <StyledContent aria-describedby={undefined}>
+          <StyledContent>
+            <VisuallyHidden>
+              <RadixDialog.Description>
+                {ariaTitle} Informations
+              </RadixDialog.Description>
+            </VisuallyHidden>
             <CloseWrapper>
               <RadixDialog.Close asChild>
                 <IconButton Icon={X} ariaLabel="Close dialog" />

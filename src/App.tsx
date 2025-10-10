@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import { ThemeProvider } from "./providers";
 import { PageLayout } from "./ui";
 import { UsersListPage } from "./pages/UsersListPage";
+import { BrowserRouter } from "react-router-dom";
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -26,9 +27,11 @@ function App() {
     <ThemeProvider>
       <GlobalStyles />
       <PageLayout>
-        <UsersListProvider>
-          <UsersListPage />
-        </UsersListProvider>
+        <BrowserRouter>
+          <UsersListProvider>
+            <UsersListPage />
+          </UsersListProvider>
+        </BrowserRouter>
       </PageLayout>
     </ThemeProvider>
   );

@@ -8,6 +8,10 @@ import React, {
 import type { User, Filter, Status } from "../types";
 import { useUsersList } from "../hooks";
 import { UsersListContext } from "./Contexts";
+import { useSearchParams } from "react-router-dom";
+
+/** TODO: Refactor Component */
+/** TODO: Refactor navigation to use proper routes */
 
 const PAGE_SIZE = 20;
 
@@ -18,18 +22,20 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
   const [status, setStatus] = useState<Status>("idle");
   const [filters, setFilters] = useState<Filter[]>([]);
   const [allUsersLoaded, setAllUsersLoaded] = useState(false);
+  const [searchParams, setUrlSearchParams] = useSearchParams();
 
   // Simulate pagination from Backend
   const [nLoadedUsers, setNLoadedUsers] = useState(0);
 
-  const [selectedUser, setSelectedUser] = useState<User | undefined>();
   const { getUsers } = useUsersList();
 
-  const getUserFromQueryParam = () => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const selectedUserId = queryParams.get("id");
-    return selectedUserId ? parseInt(selectedUserId) : undefined;
-  };
+  const selectedUser = useMemo(() => {
+    if (status !== "loaded") return undefined;
+    const selectedUserId = searchParams.get("id");
+    return selectedUserId
+      ? users.find((user) => user.id === parseInt(selectedUserId))
+      : undefined;
+  }, [searchParams, status, users]);
 
   const initUsers = async () => {
     if (status !== "idle") return;
@@ -41,10 +47,6 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
       return;
     }
     setUsers(resultUsers);
-    const selectedUserId = getUserFromQueryParam();
-    if (selectedUserId) {
-      setSelectedUser(resultUsers.find((user) => user.id === selectedUserId));
-    }
     setStatus("loaded");
   };
 
@@ -74,17 +76,10 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
   }, [filteredUsers]);
 
   const setUser = (user?: User) => {
-    setSelectedUser(user);
     if (user) {
-      const queryParams = new URLSearchParams(window.location.search);
-      queryParams.set("id", user.id.toString());
-      window.history.pushState(
-        {},
-        "",
-        `${window.location.pathname}?${queryParams.toString()}`,
-      );
+      setUrlSearchParams({ id: user.id.toString() });
     } else {
-      window.history.pushState({}, "", `${window.location.pathname}`);
+      setUrlSearchParams({});
     }
   };
 

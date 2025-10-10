@@ -44,6 +44,10 @@ const Title = styled.h1`
   margin: 0;
 `;
 
+const LeftPadding = styled.div`
+  width: 32px; // TODO: refactor
+`;
+
 export const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const { setMode } = useContext(ThemeContext);
 
@@ -54,8 +58,8 @@ export const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <StyledPageLayout>
       <Header>
-        <div />
-        <Title>Simple Users Dashboard</Title>
+        <LeftPadding />
+        <Title>Users Dashboard</Title>
         <IconButton
           Icon={Moon}
           ariaLabel="Toggle Dark Mode"

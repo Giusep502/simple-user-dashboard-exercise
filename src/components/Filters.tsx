@@ -118,7 +118,7 @@ const SearchIcon = styled(Search)`
 const availableRoles: Role[] = ["Admin", "Editor", "Viewer"];
 
 export const Filters = () => {
-  const { setFilters, filteredUsers, users, filters } =
+  const { setFilters, users, filters, allFilteredUsersNumber } =
     useContext(UsersListContext);
   const theme = useTheme();
   const roleFilter = filters.find((f) => f.type === "role")?.value || [];
@@ -199,9 +199,8 @@ export const Filters = () => {
           variant="secondary"
           disabled={!hasActiveFilters}
         />
-
         <ResultsCount>
-          Showing {filteredUsers.length} of {users.length} users
+          Showing {allFilteredUsersNumber} of {users.length} users
         </ResultsCount>
       </ResultsDiv>
     </FiltersContainer>

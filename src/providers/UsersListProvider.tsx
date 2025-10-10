@@ -17,6 +17,7 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
   const [users, setUsers] = useState<User[]>([]);
   const [status, setStatus] = useState<Status>("idle");
   const [filters, setFilters] = useState<Filter[]>([]);
+  const [allUsersLoaded, setAllUsersLoaded] = useState(false);
 
   // Simulate pagination from Backend
   const [nLoadedUsers, setNLoadedUsers] = useState(0);
@@ -69,6 +70,7 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
 
   useEffect(() => {
     setNLoadedUsers(Math.min(filteredUsers.length, PAGE_SIZE));
+    setAllUsersLoaded(filteredUsers.length <= PAGE_SIZE); // Should come from Backend
   }, [filteredUsers]);
 
   const setUser = (user?: User) => {
@@ -92,13 +94,20 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
         // Simulate load more from backend
 
         // Check if we have more users to load if backend pagination is implemented
-        if (nLoadedUsers >= filteredUsers.length) return;
+        if (nLoadedUsers >= filteredUsers.length) {
+          setAllUsersLoaded(true);
+          resolve();
+          return;
+        }
 
-        // Simulate backend response delay
+        // Simulate backend response delay and userLoaded data
         setTimeout(() => {
-          setNLoadedUsers(
-            Math.min(nLoadedUsers + PAGE_SIZE, filteredUsers.length),
+          const loadedUsers = Math.min(
+            nLoadedUsers + PAGE_SIZE,
+            filteredUsers.length,
           );
+          setNLoadedUsers(loadedUsers);
+          setAllUsersLoaded(loadedUsers >= filteredUsers.length);
           resolve();
         }, 200);
       }),
@@ -109,6 +118,7 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
     <UsersListContext
       value={{
         users,
+        allFilteredUsersNumber: filteredUsers.length, // Should come from Backend
         filteredUsers: filteredUsers.slice(0, nLoadedUsers), // Simulate pagination from backend
         filters,
         status,
@@ -116,6 +126,7 @@ export const UsersListProvider: React.FC<PropsWithChildren> = ({
         setSelectedUser: setUser,
         selectedUser,
         loadMore,
+        allUsersLoaded,
       }}
     >
       {children}

@@ -24,6 +24,7 @@ const ErrorDiv = styled.div`
 const ListPage = styled.div`
   position: relative;
   overflow: auto;
+  flex-grow: 1;
 `;
 
 const ThresholdSquare = styled.div`
@@ -34,7 +35,7 @@ const ThresholdSquare = styled.div`
 `;
 
 export const UsersListPage = () => {
-  const { status, loadMore } = useContext(UsersListContext);
+  const { status, loadMore, allUsersLoaded } = useContext(UsersListContext);
   const theme = useTheme();
   const triggerVisibleElement = useRef<HTMLDivElement>(null);
 
@@ -83,6 +84,11 @@ export const UsersListPage = () => {
       <Filters />
       <UsersList />
       <ThresholdSquare ref={triggerVisibleElement} />
+      {!allUsersLoaded && (
+        <SpinnerContainer>
+          <Spinner />
+        </SpinnerContainer>
+      )}
     </ListPage>
   );
 };

@@ -8,6 +8,8 @@ interface IUsersListContext {
   filters: Filter[];
   selectedUser?: User;
   status: Status;
+  allUsersLoaded: boolean;
+  allFilteredUsersNumber: number;
   setFilters: React.Dispatch<React.SetStateAction<Filter[]>>;
   setSelectedUser: (user?: User) => void;
   loadMore: () => Promise<void>;
@@ -18,6 +20,8 @@ const defaultUserListValues = {
   filteredUsers: [],
   filters: [],
   status: "idle",
+  allUsersLoaded: false,
+  allFilteredUsersNumber: 0,
   setFilters: () => {},
   setSelectedUser: () => {},
   loadMore: () => Promise.resolve(),

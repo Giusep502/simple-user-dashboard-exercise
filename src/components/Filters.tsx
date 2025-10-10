@@ -91,6 +91,8 @@ const ResultsCount = styled.div`
   font-size: ${({ theme }) => theme.fontSize.small};
   color: ${({ theme }) => theme.text.secondary};
   margin-top: ${({ theme }) => theme.spacing.small};
+  min-width: 160px;
+  text-align: right;
 `;
 
 const ResultsDiv = styled.div`

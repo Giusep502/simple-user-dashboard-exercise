@@ -24,16 +24,18 @@ const StyledButton = styled.button`
   }
 `;
 
-export const IconButton = ({
-  Icon,
-  ariaLabel,
-  onClick,
-  color = "primary",
-}: {
+interface IconButtonProps {
   Icon: LucideIcon;
   ariaLabel: string;
   onClick?: () => void;
   color?: keyof Theme["fill"];
+}
+
+export const IconButton: React.FC<IconButtonProps> = ({
+  Icon,
+  ariaLabel,
+  onClick,
+  color = "primary",
 }) => {
   const theme = useTheme();
   return (

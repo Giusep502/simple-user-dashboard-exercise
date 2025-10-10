@@ -11,12 +11,19 @@ Preview here: https://simple-user-dashboard-exercise.vercel.app/
 - Node.js (version 18 or higher)
 - npm or yarn package manager
 
+### Installation
+
+Install all dependencies:
+
+```bash
+npm install
+```
+
 ### Development Server
 
 To run the development server:
 
 ```bash
-npm install
 npm start
 ```
 
@@ -51,6 +58,12 @@ Unit tests are located in `src/**/__tests__/*.spec.{js,ts,jsx,tsx}` and use:
 - jsdom environment for DOM simulation
 
 ### End-to-End Tests
+
+Install playwright browsers to setup the environment:
+
+```bash
+npx playwright install --with-deps
+```
 
 Start the application development server, then run E2E tests using Playwright:
 

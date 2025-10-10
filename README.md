@@ -84,11 +84,13 @@ The project uses Prettier for code formatting and Husky for pre-commit hooks. Co
 
 ```
 src/
+├── __tests__/          # Global tests and utils
 ├── components/         # Reusable components
 │   ├── __tests__/      # Component tests
 ├── hooks/              # Custom React hooks
 ├── pages/              # Page components
 ├── providers/          # Providers
+│   ├── __tests__/      # Providers tests
 ├── types/              # TypeScript type definitions
 ├── ui/                 # Base UI components
 └── utils/              # Utility functions

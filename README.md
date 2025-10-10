@@ -52,7 +52,7 @@ Unit tests are located in `src/**/__tests__/*.spec.{js,ts,jsx,tsx}` and use:
 
 ### End-to-End Tests
 
-Run E2E tests using Playwright:
+Start the application development server, then run E2E tests using Playwright:
 
 ```bash
 npm run e2e:test

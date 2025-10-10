@@ -81,7 +81,11 @@ export const UsersList = () => {
       </TableHead>
       <tbody>
         {filteredUsers.map((user) => (
-          <Tr key={user.id} onClick={() => setSelectedUser(user)}>
+          <Tr
+            key={user.id}
+            onClick={() => setSelectedUser(user)}
+            data-testid="users-list-row"
+          >
             <Td>
               <NameDiv>{user.name}</NameDiv>
               {breakpointIndex < 1 && <MobileEmail>{user.email}</MobileEmail>}

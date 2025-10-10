@@ -171,6 +171,7 @@ export const Filters = () => {
             value={nameFilterValue}
             placeholder="Type a name to search..."
             onChange={(e) => handleNameFilterChange(e.target.value)}
+            data-testid="name-filter"
           />
           <SearchIcon size={20} color={theme.fill.primary} />
         </SearchContainer>

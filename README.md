@@ -122,6 +122,8 @@ src/
 
 - **UI Kit**: I chose to not use a UI Kit to do most of the UI components, but that was only because the requirements put very much emphasis on the accessibility, and I felt like "cheating" if I used a kit that handled most of the things for myself. In retrospective, maybe this was too much to care about, as tools like Radix gives you a lot of flexibility and room from error.
 
+- **Users Backend Simulation**: I used "jsonbin.io" service to create a simple API of Users. This has a limit of 10k requests, but I figured it would be enough for this test. I didn't implement the filters and pagination from Backend, but, for time reasons, I simulated them in Frontend, putting also a delay on the response. Also the pagination here doesn't fully cover the virtualization strategy for very long tables, as in that case you need also to cut the array "from the top", removing the first arrays from the Dom.
+
 ### Next Steps
 
 - Check comments in the code: they are things I would like to refactor if this was a real project.
